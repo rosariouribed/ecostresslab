@@ -18,18 +18,18 @@ library(dplyr)
 library(ggridges)
 
 ### IMPORT DATA
-hyd_pot_23 <- read_csv(file.path(path, "Potencial_Especies_Compartilhadas.csv"))
+hyd_pot_23 <- read.csv(file.path(path, "Potencial_Especies_Compartilhadas.csv"))
 
 hyd_pot_23_2 <- hyd_pot_23 %>%
   mutate(dateR = dmy(as.character(Data)))
 
-hyd_pot_test <- read_csv(file.path(path, "Potencial_Borda_Interior_Original_Compartilhadas.csv"))
-glimpse(hyd_pot_test)
+hyd_pot_test <- read.csv(file.path(path, "Potencial_Borda_Interior_Original_Compartilhadas.csv"))
+
 
 hyd_pot_T <- hyd_pot_test %>%
   group_by(Especie_Nome_Comum, Placa) %>%
-  spread(periodo...12, meanlwp_manha) %>%
-  spread(periodo...17, meanlwp_tarde) %>%
+  spread(periodo, meanlwp_manha) %>%
+  spread(periodo.1, meanlwp_tarde) %>%
   mutate(delta = tarde - Manha,
          delta_perc = delta/Manha) %>%
   mutate(dateR = dmy(as.character(Data)))
